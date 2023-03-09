@@ -1,0 +1,1 @@
+While this is is a Discord app, the files within this are temporarily saved in case this becomes a self-standing NodeJS app. 
