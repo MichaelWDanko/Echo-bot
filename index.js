@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const axios = require('axios');
-const tokens = require('../utils/waypoint-tokens.js');
+const tokens = require('./utils/waypoint-tokens');
 
 const client = new Discord.Client();
 

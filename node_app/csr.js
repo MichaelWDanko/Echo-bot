@@ -22,6 +22,6 @@ app.get('/api/csr/:gamertag', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Backend API listening at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Backend API listening at http://localhost:${port}`);
+// });
