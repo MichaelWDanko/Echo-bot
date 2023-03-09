@@ -2,6 +2,10 @@ const Discord = require('discord.js');
 const axios = require('axios');
 const tokens = require('./utils/waypoint-tokens');
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+} 
+
 const client = new Discord.Client();
 
 client.on('ready', () => {
