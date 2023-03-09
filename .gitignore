@@ -1,1 +1,2 @@
+# Should not commit the local variables to the repository
 .env
