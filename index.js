@@ -2,11 +2,22 @@ const Discord = require('discord.js');
 const axios = require('axios');
 const tokens = require('./utils/waypoint-tokens');
 
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 } 
 
-const client = new Discord.Client();
+const BOT_TOKEN = process.env.BOT_TOKEN;
+
+const client = new Discord.Client({
+	intents: [
+		Discord.GatewayIntentBits.Guilds,
+		Discord.GatewayIntentBits.GuildMessages,
+		Discord.GatewayIntentBits.MessageContent,
+		Discord.GatewayIntentBits.GuildMembers
+  ]
+});
+client.login(BOT_TOKEN);
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -26,6 +37,13 @@ client.on('message', async message => {
       message.reply('Internal server error');
     }
   }
-});
 
-client.login('your-discord-bot-token');
+  if (message.content.startsWith('!hello')) {
+    try {
+      message.reply('Hello there!')
+    } catch (error) {
+      console.error(error);
+      message.reply('Internal server error')
+    }
+  }
+});
