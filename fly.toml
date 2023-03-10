@@ -1,5 +1,3 @@
-# fly.toml file generated for echo-bot on 2023-03-09T07:46:57-05:00
-
 app = "echo-bot"
 kill_signal = "SIGINT"
 kill_timeout = 5
