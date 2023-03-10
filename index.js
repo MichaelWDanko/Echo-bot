@@ -30,10 +30,10 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-console.log('Now logging the BOT_TOKEN')
-console.log(process.env.BOT_TOKEN)
-console.log('Now logging client ID')
-console.log(process.env.CLIENT_ID)
+// console.log('Now logging the BOT_TOKEN')
+// console.log(process.env.BOT_TOKEN)
+// console.log('Now logging client ID')
+// console.log(process.env.CLIENT_ID)
 
 
 const commandsPath = path.join(__dirname, 'commands');

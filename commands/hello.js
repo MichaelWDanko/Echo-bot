@@ -5,7 +5,6 @@ module.exports = {
         .setName('hello')
         .setDescription('A friendly hello'),
     async execute(interation) {
-        console.log('logging within the execute(interaction) of hello.js')
         await interation.reply("Hello there")
     }
 }
