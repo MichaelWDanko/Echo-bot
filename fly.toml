@@ -1,13 +1,15 @@
 app = "echo-bot"
 kill_signal = "SIGINT"
 kill_timeout = 5
+primary_region = "iad"
 processes = []
 
 [build]
   builder = "heroku/buildpacks:20"
 
 [env]
-  PORT = "8080"
+  PORT = "8043"
+  NODE_ENV = "production"
 
 [experimental]
   auto_rollback = true

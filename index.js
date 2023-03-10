@@ -23,6 +23,11 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
+console.log('Now logging the BOT_TOKEN')
+console.log(process.env.BOT_TOKEN)
+console.log('Now logging client ID')
+console.log(process.env.CLIENT_ID)
+
 client.on('message', async message => {
   if (message.content.startsWith('!halo-csr')) {
     try {

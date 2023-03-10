@@ -1,0 +1,5 @@
+# flyctl launch added from .gitignore
+# Should not commit the local variables to the repository
+**/.env
+**/node_modules
+fly.toml
