@@ -2,7 +2,7 @@ const { ContextMenuCommandBuilder, ApplicationCommandType } = require('discord.j
 
 module.exports = {
 	data: new ContextMenuCommandBuilder()
-		.setName('user-info')
+		.setName('Discord User Info')
 		.setType(ApplicationCommandType.User),
 	async execute(interaction) {
 		// interaction.user is the object representing the User who ran the command

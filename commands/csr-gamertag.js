@@ -25,8 +25,28 @@ module.exports = {
 		}
 
 		const gamertag = gamertagResult.data.xboxLiveGamertag;
+
         console.log(`New gamertag value is: ${gamertag}`)
+        
+        //Temporary check to return the GT for a user
+        await interaction.reply({
+            content:`
+            This command was run by ${interaction.user}. \n
+            ${interaction.targetUser}'s Gamertag is: ${gamertag}
+            `,
+            ephemeral: true
+        })
 
 		// Continue with your logic to get the CSR for the user using the gamertag
 	},
 };
+
+// await interaction.reply({
+//     content:`
+//     This command was run by ${interaction.user}, who chose ${interaction.targetUser}joined on ${interaction.member.joinedAt}. \n
+//     Interaction.user = ${interaction.user} \n
+//     Interaction.user.username = ${interaction.user.username} \n
+//     Interaction.user.tag = ${interaction.user.tag}
+//     `,
+//     ephemeral: true
+// });
