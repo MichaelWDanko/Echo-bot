@@ -8,6 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
+const DISCORD_GUILD_ID_THE_BOYS = process.env.DISCORD_GUILD_ID_THE_BOYS;
 
 const commands = [];
 
@@ -25,19 +26,62 @@ for (const file of commandFiles) {
 
 const rest = new REST({ version: "10" }).setToken(BOT_TOKEN);
 
-rest
-.put(Routes.applicationCommands(CLIENT_ID), { body: [] })
-.then(() => {
-    console.log(
-    `Successfully deleted all global commands for client ${CLIENT_ID}.`
-    );
+if (!DISCORD_GUILD_ID_THE_BOYS) {
+    console.log(`DISCORD_GUILD_ID_THE_BOYS was not set`)
+} else {
+    console.log(`DISCORD_GUILD_ID_THE_BOYS was set to ${DISCORD_GUILD_ID_THE_BOYS}`)
+}
+
+
+if(DISCORD_GUILD_ID_THE_BOYS) {
     rest
-    .put(Routes.applicationCommands(CLIENT_ID), { body: commands })
-    .then(() =>
+    .put(Routes.applicationCommands(CLIENT_ID, DISCORD_GUILD_ID_THE_BOYS), { body: [] })
+    .then(() => {
         console.log(
-        `Successfully registered global commands for client ${CLIENT_ID}.`
+        `Successfully deleted all commands for client ${CLIENT_ID} in GUILD: ${DISCORD_GUILD_ID_THE_BOYS}.`
+        );
+        rest
+        .put(Routes.applicationCommands(CLIENT_ID, DISCORD_GUILD_ID_THE_BOYS), { body: commands })
+        .then(() =>
+            console.log(
+            `Successfully registered commands for client ${CLIENT_ID} in GUILD: ${DISCORD_GUILD_ID_THE_BOYS}.`
+            )
         )
-    )
+        .catch(console.error);
+    })
     .catch(console.error);
-})
-.catch(console.error);
+} else {
+    rest
+    .put(Routes.applicationCommands(CLIENT_ID), { body: [] })
+    .then(() => {
+        console.log(
+        `Successfully deleted all global commands for client ${CLIENT_ID}.`
+        );
+        rest
+        .put(Routes.applicationCommands(CLIENT_ID), { body: commands })
+        .then(() =>
+            console.log(
+            `Successfully registered global commands for client ${CLIENT_ID}.`
+            )
+        )
+        .catch(console.error);
+    })
+    .catch(console.error);
+}
+
+// rest
+// .put(Routes.applicationCommands(CLIENT_ID), { body: [] })
+// .then(() => {
+//     console.log(
+//     `Successfully deleted all global commands for client ${CLIENT_ID}.`
+//     );
+//     rest
+//     .put(Routes.applicationCommands(CLIENT_ID), { body: commands })
+//     .then(() =>
+//         console.log(
+//         `Successfully registered global commands for client ${CLIENT_ID}.`
+//         )
+//     )
+//     .catch(console.error);
+// })
+// .catch(console.error);
