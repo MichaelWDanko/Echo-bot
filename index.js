@@ -55,6 +55,7 @@ for (const file of commandFiles) {
 client.on(Discord.Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand() && !interaction.isContextMenuCommand) {
     console.error(`Received an interaction I can't handle`);
+    
     return;
   } 
   console.log(interaction)

@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
-const DISCORD_GUILD_ID_THE_BOYS = process.env.DISCORD_GUILD_ID_THE_BOYS;
+const DISCORD_GUILD_ID_THE_BOYS = process.env.DISCORD_GUILD_ID_THE_BOYS___OLD;
 
 const commands = [];
 
@@ -68,20 +68,3 @@ if(DISCORD_GUILD_ID_THE_BOYS) {
     })
     .catch(console.error);
 }
-
-// rest
-// .put(Routes.applicationCommands(CLIENT_ID), { body: [] })
-// .then(() => {
-//     console.log(
-//     `Successfully deleted all global commands for client ${CLIENT_ID}.`
-//     );
-//     rest
-//     .put(Routes.applicationCommands(CLIENT_ID), { body: commands })
-//     .then(() =>
-//         console.log(
-//         `Successfully registered global commands for client ${CLIENT_ID}.`
-//         )
-//     )
-//     .catch(console.error);
-// })
-// .catch(console.error);
