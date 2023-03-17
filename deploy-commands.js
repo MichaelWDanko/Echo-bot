@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
-const DISCORD_GUILD_ID_THE_BOYS = process.env.DISCORD_GUILD_ID_THE_BOYS___OLD;
+const DISCORD_GUILD_ID_THE_BOYS = process.env.DISCORD_GUILD_ID_THE_BOYS;
 
 const commands = [];
 

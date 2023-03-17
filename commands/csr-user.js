@@ -1,5 +1,5 @@
 const { ContextMenuCommandBuilder, ApplicationCommandType } = require('discord.js');
-const getGamertag = require('../getGamertag');
+const getGamertag = require('../utils/getGamertag');
 
 module.exports = {
 	data: new ContextMenuCommandBuilder()
@@ -19,6 +19,8 @@ module.exports = {
 		}
 
 		const gamertag = gamertagResult.data.xboxLiveGamertag;
+        
+        //Temporary check to return the GT for a user 
         console.log(`New gamertag value is: ${gamertag}`)
         await interaction.reply({
             content:`

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const getGamertag = require('../getGamertag');
+const getGamertag = require('../utils/getGamertag');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -27,7 +27,7 @@ module.exports = {
 		const gamertag = gamertagResult.data.xboxLiveGamertag;
 
         console.log(`New gamertag value is: ${gamertag}`)
-        
+
         //Temporary check to return the GT for a user
         await interaction.reply({
             content:`
