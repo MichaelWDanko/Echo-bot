@@ -1,5 +1,7 @@
 const { ContextMenuCommandBuilder, ApplicationCommandType } = require('discord.js');
-const getGamertag = require('../utils/getGamertag');
+const getCSR = require('../utils/getCSR');
+const getGamertagFromDiscordInteraction = require('../utils/getGamertag');
+const buildRankEmbeds = require('../utils/buildRankEmbeds');
 
 module.exports = {
 	data: new ContextMenuCommandBuilder()
@@ -7,40 +9,42 @@ module.exports = {
 		.setType(ApplicationCommandType.User),
 	async execute(interaction) {
 
-        console.log(`Running csr-user as a UserCommand. Attempting to lookup Gamertag.`)
+		console.log(`Running "Get User's CSR" as a UserCommand. Attempting to lookup gamertag.`)
 
-		const gamertagResult = await getGamertag(interaction);
-		if (!gamertagResult.success) {
+		try {
+			// const targetUser = interaction.targetUser;
+			const gamertagResponse = await getGamertagFromDiscordInteraction(interaction);
+
+			console.log ()
+			if (!gamertagResponse.success) {
+				await interaction.reply({
+					content: `There was an error retrieving the gamertag for this user`,
+					ephemeral: true });
+				return;
+			}
+			
+			const gamertag = gamertagResponse.gamertag
+
+			const csrResponse = await getCSR(gamertag);
+
+			if (csrResponse.error) {
+				await interaction.reply({
+					content: `There was an error retrieving the rank for the gamertag associated to this user`,
+					ephemeral: true });
+				return;
+			}
+
+			const rankEmbeds = []
+
 			await interaction.reply({
-				content: 'An error occurred while fetching the Gamertag.',
+				embeds: csrResponse,
+			});
+		} catch (error) {
+			console.error(error);
+			await interaction.reply({
+				content: 'An error occurred while processing your request as a Discord user command',
 				ephemeral: true,
 			});
-			return;
 		}
-
-		const gamertag = gamertagResult.data.xboxLiveGamertag;
-        
-        //Temporary check to return the GT for a user 
-        console.log(`New gamertag value is: ${gamertag}`)
-        await interaction.reply({
-            content:`
-            This command was run by ${interaction.user}. \n
-            ${interaction.targetUser}'s Gamertag is: ${gamertag}
-            `,
-            ephemeral: true
-        })
-
-		// Continue with your logic to get the CSR for the user using the gamertag
 	},
 };
-
-
-// await interaction.reply({
-//     content:`
-//     This command was run by ${interaction.user}, who chose ${interaction.targetUser}joined on ${interaction.member.joinedAt}. \n
-//     Interaction.user = ${interaction.user} \n
-//     Interaction.user.username = ${interaction.user.username} \n
-//     Interaction.user.tag = ${interaction.user.tag}
-//     `,
-//     ephemeral: true
-// });
