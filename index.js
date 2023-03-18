@@ -2,8 +2,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const Discord = require('discord.js');
-const axios = require('axios');
-const tokens = require('./utils/waypoint-tokens');
+// const axios = require('axios');
+// const tokens = require('./utils/waypoint-tokens');
 
 
 if (process.env.NODE_ENV !== 'production') {
