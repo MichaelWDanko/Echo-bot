@@ -5,14 +5,15 @@ if (process.env.NODE_ENV !== 'production') {
 } 
 
 async function getGamertagFromDiscordInteraction(interaction) {
-    console.log(`Running getGamertag`)
+    console.log(`Running getGamertagFromDiscordInteraction`)
     
     // Temporary code to always return a test vale
     return {
-        success: true,
-        data: {
-            xboxLiveGamertag: "Jaxasaurous"
-        }
+       discordUserId: "Jaxasaurous",
+       discordUserTag: "4767",
+       xboxLiveXuid: 2535429473929971,
+       xboxLiveGamertag: "Jaxasaurous",
+       verified: true
     };
     
     const HALOFUNTIME_API_KEY = process.env.HALOFUNTIME_API_KEY;
