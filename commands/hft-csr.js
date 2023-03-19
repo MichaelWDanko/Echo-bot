@@ -7,7 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("csr-gamertag")
+    .setName("hft-csr-gamertag")
     .setDescription("Check the CSR for a gamertag")
     .addStringOption((option) =>
       option
