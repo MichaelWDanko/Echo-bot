@@ -31,8 +31,8 @@ module.exports = {
 
 			console.log(`csr-user.js - About to set const: csrResponse `)
 			const csrResponse = await getCSR(gamertag);
-			console.log(`csr-user.js - New value of const csrResponse is:`)
-			console.log(csrResponse)
+			// console.log(`csr-user.js - New value of const csrResponse is:`)
+			// console.log(csrResponse)
 
 
 			if (csrResponse.error) {
@@ -45,7 +45,7 @@ module.exports = {
 			let responseEmbeds = []
 			
 			if ("error" in csrResponse) {
-				console.log(`csr-user.js - Attempting to check for an error in the csrResponse`)
+				// console.log(`csr-user.js - Attempting to check for an error in the csrResponse`)
 				if (csrResponse.error.details?.detail) {
 				  await interaction.reply({
 					content: csrResponse.error.details.detail,
@@ -58,15 +58,16 @@ module.exports = {
 				  });
 				}
 			  } else {
-				console.log(`No error in csrResponse. Attempting to set responseEmbeds to result of buildRankEmbeds`)
+				// console.log(`csr-user.js - No error in csrResponse. Attempting to set responseEmbeds to result of buildRankEmbeds`)
 				responseEmbeds = buildRankEmbeds(csrResponse)
 			  }
 
-			  console.log(`csr-user.js - About to log value of responseEmbeds:`)
-			  console.log(responseEmbeds)
+			//   console.log(`csr-user.js - About to log value of responseEmbeds:`)
+			//   console.log(responseEmbeds)
 
 			await interaction.reply({
 				embeds: responseEmbeds,
+				ephemeral: true
 			});
 
 		} catch (error) {
