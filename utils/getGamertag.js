@@ -25,7 +25,7 @@ async function getGamertagFromDiscordInteraction(interaction) {
     
     const targetUser = interaction.targetUser
     const targetDiscordId = interaction.targetUser.id
-    const targetDiscordTag = interaction.targetUser.discriminator
+    const targetDiscordTag = interaction.targetUser.username + "#" + interaction.targetUser.discriminator
     // console.log(`The value of targetUser is: ${targetUser}`)
     // console.log(targetUser)
 
@@ -33,7 +33,7 @@ async function getGamertagFromDiscordInteraction(interaction) {
 
     const requestURL = `${HALOFUNTIME_API_URL}/link/discord-to-xbox-live?discordId=${targetDiscordId}&discordTag=${encodeURIComponent(targetDiscordTag)}`
     console.log(`The requestURL is: ${requestURL}`)
-    return
+
     try {
         const response = await axios.get(requestURL, {
             headers: {
