@@ -12,28 +12,28 @@ module.exports = {
 		console.log(`Running "Get User's CSR" as a UserCommand. Attempting to lookup gamertag.`)
 
 		try {
-			// const targetUser = interaction.targetUser;
-			const gamertagResponse = await getGamertagFromDiscordInteraction(interaction);
-			console.log(`The value of gamertagResponse is:`)
-			console.log(gamertagResponse)
 
-			const gamertag = gamertagResponse.xboxLiveGamertag;
+			const gamertagResponse = await getGamertagFromDiscordInteraction(interaction);
+			// console.log(`The value of gamertagResponse is:`)
+			// console.log(gamertagResponse)
+			if (gamertagResponse.message?.error == "Not found.") {
+				
+				await interaction.reply({
+					content:
+					  `<@${interaction.targetUser.id}> hasn't linked a gamertag on HaloFunTime. ` +
+					  "They can use `/link-gamertag` at any time to do so.",
+					ephemeral: true
+				});
+				return
+			}
+
+
+			const gamertag = gamertagResponse.data.xboxLiveGamertag;
 			console.log(`The value of gamertag is:`)
 			console.log(gamertag)
 
-
-			// if (!gamertagResponse.success) {
-			// 	await interaction.reply({
-			// 		content: `There was an error retrieving the gamertag for this user`,
-			// 		ephemeral: true });
-			// 	return;
-			// }
-
 			console.log(`csr-user.js - About to set const: csrResponse `)
 			const csrResponse = await getCSR(gamertag);
-			// console.log(`csr-user.js - New value of const csrResponse is:`)
-			// console.log(csrResponse)
-
 
 			if (csrResponse.error) {
 				await interaction.reply({
