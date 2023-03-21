@@ -15,23 +15,23 @@ module.exports = {
 	  	),
 	async execute(interaction) {
 		try {
-			console.log(`csr-slash.js - About to set const: gamertag`)
+			// console.log(`csr-slash.js - About to set const: gamertag`)
 			const gamertag = interaction.options.getString('gamertag');
 			console.log(`csr-slash.js - New value of const gamertag is:`)
 			console.log(gamertag)
 
-			console.log(`csr-slash.js - About to set const: csrResponse `)
-			const csrResponse = await getCSR(gamertag);
-			console.log(`csr-slash.js - New value of const csrResponse is:`)
-			console.log(csrResponse)
+			// console.log(`csr-slash.js - About to set const: csr_response `)
+			const csr_response = await getCSR(gamertag);
+			console.log(`csr-slash.js - New value of const csr_response is:`)
+			// console.log(csr_response)
 
 			let response_embeds = []
 			
-			if ("error" in csrResponse) {
-				console.log(`csr-slash.js - Attempting to check for an error in the csrResponse`)
-				if (csrResponse.error.details?.detail) {
+			if ("error" in csr_response) {
+				console.log(`csr-slash.js - Attempting to check for an error in the csr_response`)
+				if (csr_response.error.details?.detail) {
 				  await interaction.reply({
-					content: csrResponse.error.details.detail,
+					content: csr_response.error.details.detail,
 					ephemeral: true,
 				  });
 				} else {
@@ -41,12 +41,12 @@ module.exports = {
 				  });
 				}
 			  } else {
-				console.log(`No error in csrResponse. Attempting to set response_embeds to result of buildRankEmbeds`)
-				response_embeds = buildRankEmbeds(csrResponse)
+				console.log(`csr-slash.js - No error in csr_response. Attempting to set response_embeds to result of buildRankEmbeds`)
+				response_embeds = buildRankEmbeds(csr_response)
 			  }
 
-			  console.log(`csr-slash.js - About to log value of response_embeds:`)
-			  console.log(response_embeds)
+			//   console.log(`csr-slash.js - About to log value of response_embeds:`)
+			//   console.log(response_embeds)
 
 			await interaction.reply({
 				embeds: response_embeds

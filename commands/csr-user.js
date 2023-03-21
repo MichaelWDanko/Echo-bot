@@ -13,10 +13,10 @@ module.exports = {
 
 		try {
 
-			const gamertagResponse = await getGamertagFromDiscordInteraction(interaction);
-			// console.log(`The value of gamertagResponse is:`)
-			// console.log(gamertagResponse)
-			if (gamertagResponse.message?.error == "Not found.") {
+			const gamertag_response = await getGamertagFromDiscordInteraction(interaction);
+			// console.log(`The value of gamertag_response is:`)
+			// console.log(gamertag_response)
+			if (gamertag_response.message?.error == "Not found.") {
 				
 				await interaction.reply({
 					content:
@@ -27,28 +27,26 @@ module.exports = {
 				return
 			}
 
+			const gamertag = gamertag_response.data.xboxLiveGamertag;
+			console.log(`The value of gamertag is: ${gamertag}`)
 
-			const gamertag = gamertagResponse.data.xboxLiveGamertag;
-			console.log(`The value of gamertag is:`)
-			console.log(gamertag)
+			console.log(`csr-user.js - About to set const: csr_response `)
+			const csr_response = await getCSR(gamertag);
 
-			console.log(`csr-user.js - About to set const: csrResponse `)
-			const csrResponse = await getCSR(gamertag);
-
-			if (csrResponse.error) {
+			if (csr_response.error) {
 				await interaction.reply({
 					content: `There was an error retrieving the rank for the gamertag associated to this user`,
 					ephemeral: true });
 				return;
 			}
 
-			let responseEmbeds = []
+			let response_embeds = []
 			
-			if ("error" in csrResponse) {
-				// console.log(`csr-user.js - Attempting to check for an error in the csrResponse`)
-				if (csrResponse.error.details?.detail) {
+			if ("error" in csr_response) {
+				// console.log(`csr-user.js - Attempting to check for an error in the csr_response`)
+				if (csr_response.error.details?.detail) {
 				  await interaction.reply({
-					content: csrResponse.error.details.detail,
+					content: csr_response.error.details.detail,
 					ephemeral: true,
 				  });
 				} else {
@@ -58,15 +56,15 @@ module.exports = {
 				  });
 				}
 			  } else {
-				// console.log(`csr-user.js - No error in csrResponse. Attempting to set responseEmbeds to result of buildRankEmbeds`)
-				responseEmbeds = buildRankEmbeds(csrResponse)
+				// console.log(`csr-user.js - No error in csr_response. Attempting to set response_embeds to result of buildRankEmbeds`)
+				response_embeds = buildRankEmbeds(csr_response)
 			  }
 
-			//   console.log(`csr-user.js - About to log value of responseEmbeds:`)
-			//   console.log(responseEmbeds)
+			//   console.log(`csr-user.js - About to log value of response_embeds:`)
+			//   console.log(response_embeds)
 
 			await interaction.reply({
-				embeds: responseEmbeds,
+				embeds: response_embeds,
 				ephemeral: true
 			});
 

@@ -17,31 +17,19 @@ async function getGamertagFromDiscordInteraction(interaction) {
     
     const HALOFUNTIME_API_KEY = process.env.HALOFUNTIME_API_KEY;
     const HALOFUNTIME_API_URL = process.env.HALOFUNTIME_API_URL;
-    
-    // const member = interaction.options.getUser("member");
-    // const member = interaction.member;
-    // const discordId = interaction.member.user.id
-    // let discordTag = interaction.user.username + "#" + interaction.user.discriminator;
-    
-    const targetUser = interaction.targetUser
-    const targetDiscordId = interaction.targetUser.id
-    const targetDiscordTag = interaction.targetUser.username + "#" + interaction.targetUser.discriminator
-    // console.log(`The value of targetUser is: ${targetUser}`)
-    // console.log(targetUser)
 
-    
+    const target_discord_id = interaction.targetUser.id
+    const target_discord_tag = interaction.targetUser.username + "#" + interaction.targetUser.discriminator
 
-    const requestURL = `${HALOFUNTIME_API_URL}/link/discord-to-xbox-live?discordId=${targetDiscordId}&discordTag=${encodeURIComponent(targetDiscordTag)}`
-    console.log(`The requestURL is: ${requestURL}`)
+    const request_url = `${HALOFUNTIME_API_URL}/link/discord-to-xbox-live?discordId=${target_discord_id}&discordTag=${encodeURIComponent(target_discord_tag)}`
+    console.log(`The value of request_url is: ${request_url}`)
 
     try {
-        const response = await axios.get(requestURL, {
+        const response = await axios.get(request_url, {
             headers: {
                 Authorization: `Bearer ${HALOFUNTIME_API_KEY}`,
             },
         });
-        // console.log("About to log the value of const: response")
-        // console.info(response)
 
         return {
             success: true,

@@ -1,23 +1,23 @@
 const { EmbedBuilder } = require("discord.js");
 
-function buildRankEmbeds(csrData) {
+function buildRankEmbeds(csr_data) {
   const rankEmbeds = [];
   console.log(`Now running function "buildRankEmbeds"`)
-  // console.log(`About to log value of csrData that was passed into the function:`)
-  // console.log(csrData)
+  // console.log(`About to log value of csr_data that was passed into the function:`)
+  // console.log(csr_data)
 
 
-  for (let playlist of csrData.playlists) {
-    const currentCSR = playlist.current.csr;
-    if (currentCSR !== -1) {
+  for (let playlist of csr_data.playlists) {
+    const current_csr = playlist.current.csr;
+    if (current_csr !== -1) {
       const currentTierDescription = playlist.current.tierDescription;
       const imageName = currentTierDescription.replace(' ', '-').toLowerCase();
       const rankEmbed = new EmbedBuilder()
         .setTitle(playlist.playlistName)
         .setThumbnail(`https://api.halofuntime.com/static/csr_images/${imageName}.png`)
         .addFields({
-          name: `${currentTierDescription} (${currentCSR})`,
-          value: `**GT:** \`${csrData.gamertag}\``,
+          name: `${currentTierDescription} (${current_csr})`,
+          value: `**GT:** \`${csr_data.gamertag}\``,
         })
         .setTimestamp()
         .setFooter({ text: 'Current CSR' });
@@ -25,8 +25,8 @@ function buildRankEmbeds(csrData) {
     }
   }
   if (rankEmbeds.length === 0) {
-      let description = `\`${csrData.gamertag}\` is currently unranked.`;
-      if (csrData.gamertag === "HFT Intern") {
+      let description = `\`${csr_data.gamertag}\` is currently unranked.`;
+      if (csr_data.gamertag === "HFT Intern") {
         description +=
           "\n\nThis is because quantifying my greatness is impossible. You mortals wouldn't understand.";
       }
