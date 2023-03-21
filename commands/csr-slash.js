@@ -5,14 +5,14 @@ const buildRankEmbeds = require('../utils/buildRankEmbeds');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('csr')
-		.setDescription('Get the CSR for a user by entering their gamertag.')
+		.setDescription("Get the CSR for a user by entering their gamertag.")
 		.addStringOption((option) =>
 		option
 		  .setName("gamertag")
 		  .setDescription("A valid Xbox Live gamertag")
 		  .setMaxLength(15)
 		  .setRequired(true)
-	  ),
+	  	),
 	async execute(interaction) {
 		try {
 			console.log(`csr-slash.js - About to set const: gamertag`)
@@ -25,14 +25,7 @@ module.exports = {
 			console.log(`csr-slash.js - New value of const csrResponse is:`)
 			console.log(csrResponse)
 
-			// if (!csrResponse.success) {
-			// 	await interaction.reply({
-			// 		content: `There was an error retrieving the rank for ${gamertag}`,
-			// 		ephemeral: true });
-			// 	return;
-			// }
-
-			let responseEmbeds = []
+			let response_embeds = []
 			
 			if ("error" in csrResponse) {
 				console.log(`csr-slash.js - Attempting to check for an error in the csrResponse`)
@@ -48,16 +41,15 @@ module.exports = {
 				  });
 				}
 			  } else {
-				console.log(`No error in csrResponse. Attempting to set responseEmbeds to result of buildRankEmbeds`)
-				responseEmbeds = buildRankEmbeds(csrResponse)
+				console.log(`No error in csrResponse. Attempting to set response_embeds to result of buildRankEmbeds`)
+				response_embeds = buildRankEmbeds(csrResponse)
 			  }
 
-			  console.log(`csr-slash.js - About to log value of responseEmbeds:`)
-			  console.log(responseEmbeds)
+			  console.log(`csr-slash.js - About to log value of response_embeds:`)
+			  console.log(response_embeds)
 
 			await interaction.reply({
-				embeds: responseEmbeds,
-				ephemeral: true,
+				embeds: response_embeds
 			});
 
 		} catch (error) {
